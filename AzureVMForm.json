@@ -1,0 +1,495 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2021-09-09/uiFormDefinition.schema.json",
+    "view": {
+        "kind": "Form",
+        "properties": {
+            "title": "Azure VM Deployment",
+            "steps": [
+                {
+                    "name": "basics",
+                    "label": "Basics",
+                    "elements": [
+                        {
+                            "name": "resourceScope",
+                            "type": "Microsoft.Common.ResourceScope",
+                            "location": {
+                                "resourceTypes": [
+                                    "microsoft.resources/resourcegroups"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "virtualmachinedetails",
+                    "label": "Virtual Machine Details",
+                    "elements": [
+                        {
+                            "name": "keyVaultName",
+                            "type": "Microsoft.Common.TextBox",
+                            "label": "Key Vault Name",
+                            "subLabel": "",
+                            "defaultValue": "Test-KeyVault-1",
+                            "toolTip": "Required. Name of the Key Vault. Must be globally unique.",
+                            "constraints": {
+                                "required": false
+                            },
+                            "infoMessages": [],
+                            "visible": true
+                        },
+                        {
+                            "name": "vmAdmin",
+                            "type": "Microsoft.Common.DropDown",
+                            "label": "Vm Admin",
+                            "subLabel": "",
+                            "defaultValue": " ",
+                            "toolTip": "Key Vault Secret name which contains local administrator name",
+                            "constraints": {
+                                "required": true,
+                                "allowedValues": [
+                                    {
+                                        "label": "vmAdmin",
+                                        "value": "vmAdmin"
+                                    },
+                                    {
+                                        "label": "vmAdmin1",
+                                        "value": "vmAdmin1"
+                                    }
+                                ],
+                                "validations": []
+                            },
+                            "infoMessages": [],
+                            "visible": true
+                        },
+                        {
+                            "name": "vmAdminPassword",
+                            "type": "Microsoft.Common.DropDown",
+                            "label": "Vm Admin Password",
+                            "subLabel": "",
+                            "defaultValue": " ",
+                            "toolTip": "Key Vault Secret name which contains local administrator password",
+                            "constraints": {
+                                "required": true,
+                                "allowedValues": [
+                                    {
+                                        "label": "vmAdminPassword",
+                                        "value": "vmAdminPassword"
+                                    },
+                                    {
+                                        "label": "vmAdminPassword1",
+                                        "value": "vmAdminPassword1"
+                                    }
+                                ],
+                                "validations": []
+                            },
+                            "infoMessages": [],
+                            "visible": true
+                        },
+                        {
+                            "name": "vNetResourceGroup",
+                            "type": "Microsoft.Common.DropDown",
+                            "label": "V Net Resource Group",
+                            "subLabel": "",
+                            "defaultValue": "Test-RG",
+                            "toolTip": "Select the resource group that the virtual network belongs to",
+                            "constraints": {
+                                "required": false,
+                                "allowedValues": [
+                                    {
+                                        "label": "Test-RG",
+                                        "value": "Test-RG"
+                                    },
+                                    {
+                                        "label": "rg-ccs-test-usva-mgmt",
+                                        "value": "rg-ccs-test-usva-mgmt"
+                                    }
+                                ],
+                                "validations": []
+                            },
+                            "infoMessages": [],
+                            "visible": true
+                        },
+                        {
+                            "name": "vNetName",
+                            "type": "Microsoft.Common.DropDown",
+                            "label": "V Net Name",
+                            "subLabel": "",
+                            "defaultValue": "Test-VNet-1",
+                            "toolTip": "Select the Virtual Network the VM should be deployed to",
+                            "constraints": {
+                                "required": false,
+                                "allowedValues": [
+                                    {
+                                        "label": "Test-VNet-1",
+                                        "value": "Test-VNet-1"
+                                    },
+                                    {
+                                        "label": "Test-VNet-2",
+                                        "value": "Test-VNet-2"
+                                    }
+                                ],
+                                "validations": []
+                            },
+                            "infoMessages": [],
+                            "visible": true
+                        },
+                        {
+                            "name": "subnetName",
+                            "type": "Microsoft.Common.DropDown",
+                            "label": "Subnet Name",
+                            "subLabel": "",
+                            "defaultValue": "Subnet1",
+                            "toolTip": "Select the subnet the VM should be deployed to",
+                            "constraints": {
+                                "required": false,
+                                "allowedValues": [
+                                    {
+                                        "label": "Subnet1",
+                                        "value": "Subnet1"
+                                    },
+                                    {
+                                        "label": "Subnet2",
+                                        "value": "Subnet2"
+                                    },
+                                    {
+                                        "label": "Subnet3",
+                                        "value": "Subnet3"
+                                    }
+                                ],
+                                "validations": []
+                            },
+                            "infoMessages": [],
+                            "visible": true
+                        },
+                        {
+                            "name": "virtualMachineNamePrefix",
+                            "type": "Microsoft.Common.TextBox",
+                            "label": "Virtual Machine Name Prefix",
+                            "subLabel": "",
+                            "defaultValue": "vm-test-0",
+                            "toolTip": "Name of the virtual machine to be created",
+                            "constraints": {
+                                "required": false
+                            },
+                            "infoMessages": [],
+                            "visible": true
+                        },
+                        {
+                            "name": "virtualMachineNameSuffix",
+                            "type": "Microsoft.Common.TextBox",
+                            "label": "Virtual Machine Name Suffix",
+                            "subLabel": "",
+                            "defaultValue": "",
+                            "toolTip": "Virtual Machine Name Suffix",
+                            "constraints": {
+                                "required": true
+                            },
+                            "infoMessages": [],
+                            "visible": true
+                        },
+                        {
+                            "name": "vmSize",
+                            "type": "Microsoft.Common.DropDown",
+                            "label": "Vm Size",
+                            "subLabel": "",
+                            "defaultValue": "Standard_DS2_v2",
+                            "toolTip": "Select the virtual machine size",
+                            "constraints": {
+                                "required": false,
+                                "allowedValues": [
+                                    {
+                                        "label": "Standard_DS1_v2",
+                                        "value": "Standard_DS1_v2"
+                                    },
+                                    {
+                                        "label": "Standard_D2s_v3",
+                                        "value": "Standard_D2s_v3"
+                                    },
+                                    {
+                                        "label": "Standard_DS2_v2",
+                                        "value": "Standard_DS2_v2"
+                                    },
+                                    {
+                                        "label": "Standard_D4s_v3",
+                                        "value": "Standard_D4s_v3"
+                                    },
+                                    {
+                                        "label": "Standard_DS3_v2",
+                                        "value": "Standard_DS3_v2"
+                                    },
+                                    {
+                                        "label": "Standard_D8s_v3",
+                                        "value": "Standard_D8s_v3"
+                                    }
+                                ],
+                                "validations": []
+                            },
+                            "infoMessages": [],
+                            "visible": true
+                        },
+                        {
+                            "name": "dataDisks",
+                            "type": "Microsoft.Common.TextBox",
+                            "label": "Data Disks",
+                            "subLabel": "",
+                            "defaultValue": "[[{\"diskSizeGB\":\"32\"},{\"diskSizeGB\":\"64\"}]",
+                            "toolTip": "Provide the size of the data disk(s) in GB. Use comma seperator for more than one disks.\r\n[{\"diskSizeGB\":\"32\"},{\"diskSizeGB\":\"64\"}]\r\n",
+                            "constraints": {
+                                "required": false,
+                                "regex": "",
+                                "validationMessage": "",
+                                "validations": []
+                            },
+                            "infoMessages": [],
+                            "visible": true
+                        },
+                        {
+                            "name": "osType",
+                            "type": "Microsoft.Common.DropDown",
+                            "label": "Os Type",
+                            "subLabel": "",
+                            "defaultValue": " ",
+                            "toolTip": "Required. The chosen OS type.",
+                            "constraints": {
+                                "required": true,
+                                "allowedValues": [
+                                    {
+                                        "label": "Windows",
+                                        "value": "Windows"
+                                    },
+                                    {
+                                        "label": "Linux",
+                                        "value": "Linux"
+                                    }
+                                ],
+                                "validations": []
+                            },
+                            "infoMessages": [],
+                            "visible": true
+                        },
+                        {
+                            "name": "licenseType",
+                            "type": "Microsoft.Common.DropDown",
+                            "label": "License Type",
+                            "subLabel": "",
+                            "defaultValue": " ",
+                            "toolTip": "Optional. Specifies that the image or disk that is being used was licensed on-premises. This element is only used for images that contain the Windows Server operating system.",
+                            "constraints": {
+                                "required": false,
+                                "allowedValues": [
+                                    {
+                                        "label": "Windows_Client",
+                                        "value": "Windows_Client"
+                                    },
+                                    {
+                                        "label": "Windows_Server",
+                                        "value": "Windows_Server"
+                                    },
+                                    {
+                                        "label": "RHEL_BYOS",
+                                        "value": "RHEL_BYOS"
+                                    },
+                                    {
+                                        "label": "SLES_BYOS",
+                                        "value": "SLES_BYOS"
+                                    },
+                                    {
+                                        "label": "",
+                                        "value": ""
+                                    }
+                                ],
+                                "validations": []
+                            },
+                            "infoMessages": [],
+                            "visible": true
+                        },
+                        {
+                            "name": "operatingSystem",
+                            "type": "Microsoft.Common.DropDown",
+                            "label": "Operating System",
+                            "subLabel": "",
+                            "defaultValue": "Server2019",
+                            "toolTip": "Select the resource group that the virtual network belongs to",
+                            "constraints": {
+                                "required": false,
+                                "allowedValues": [
+                                    {
+                                        "label": "Server2012R2",
+                                        "value": "Server2012R2"
+                                    },
+                                    {
+                                        "label": "Server2016",
+                                        "value": "Server2016"
+                                    },
+                                    {
+                                        "label": "Server2019",
+                                        "value": "Server2019"
+                                    },
+                                    {
+                                        "label": "Server2022",
+                                        "value": "Server2022"
+                                    },
+                                    {
+                                        "label": "UbuntuServer1604LTS",
+                                        "value": "UbuntuServer1604LTS"
+                                    },
+                                    {
+                                        "label": "UbuntuServer1804LTS",
+                                        "value": "UbuntuServer1804LTS"
+                                    },
+                                    {
+                                        "label": "UbuntuServer1904",
+                                        "value": "UbuntuServer1904"
+                                    },
+                                    {
+                                        "label": "RedHat85Gen2",
+                                        "value": "RedHat85Gen2"
+                                    },
+                                    {
+                                        "label": "RedHat86Gen2",
+                                        "value": "RedHat86Gen2"
+                                    },
+                                    {
+                                        "label": "RedHat90Gen2",
+                                        "value": "RedHat90Gen2"
+                                    }
+                                ],
+                                "validations": []
+                            },
+                            "infoMessages": [],
+                            "visible": true
+                        },
+                        {
+                            "name": "securityType",
+                            "type": "Microsoft.Common.TextBox",
+                            "label": "Security Type",
+                            "subLabel": "",
+                            "defaultValue": "TrustedLaunch",
+                            "toolTip": "Optional. Specifies the SecurityType of the virtual machine. It is set as TrustedLaunch to enable UefiSettings.",
+                            "constraints": {
+                                "required": false,
+                                "regex": "",
+                                "validationMessage": "",
+                                "validations": []
+                            },
+                            "infoMessages": [],
+                            "visible": true
+                        },
+                        {
+                            "name": "timeZone",
+                            "type": "Microsoft.Common.TextBox",
+                            "label": "Time Zone",
+                            "subLabel": "",
+                            "defaultValue": "Eastern Standard Time",
+                            "toolTip": "Optional. Specifies the time zone of the virtual machine. e.g. 'Pacific Standard Time'. Possible values can be `TimeZoneInfo.id` value from time zones returned by `TimeZoneInfo.GetSystemTimeZones`.",
+                            "constraints": {
+                                "required": false,
+                                "regex": "",
+                                "validationMessage": "",
+                                "validations": []
+                            },
+                            "infoMessages": [],
+                            "visible": true
+                        },
+                        {
+                            "name": "tags",
+                            "type": "Microsoft.Common.TextBox",
+                            "label": "Tags",
+                            "subLabel": "",
+                            "defaultValue": "{\"Application\":\"DemoApp\",\"Application_Function\":\"Sales\",\"Class_of_Service\":\"Prod\",\"Organization\":\"IT\",\"Ticket_ID\":\"123456\"}",
+                            "toolTip": "Example: {\"Environment\":\"demo\",\"Owner\":\"IT\"}",
+                            "constraints": {
+                                "required": false,
+                                "regex": "",
+                                "validationMessage": "",
+                                "validations": []
+                            },
+                            "infoMessages": [],
+                            "visible": true
+                        }
+                    ]
+                },
+                {
+                    "name": "virtualmachinebackup",
+                    "label": "Virtual Machine Backup",
+                    "elements": [
+                        {
+                            "name": "recoveryServicesVaultRgName",
+                            "type": "Microsoft.Common.TextBox",
+                            "label": "Recovery Services Vault Rg Name",
+                            "subLabel": "",
+                            "defaultValue": "Test-RG",
+                            "toolTip": "Resource group where the Recovery Services Vault is located. This can be different than resource group of the Virtual Machines.",
+                            "constraints": {
+                                "required": false,
+                                "regex": "",
+                                "validationMessage": "",
+                                "validations": []
+                            },
+                            "infoMessages": [],
+                            "visible": true
+                        },
+                        {
+                            "name": "recoveryServicesVaultName",
+                            "type": "Microsoft.Common.TextBox",
+                            "label": "Recovery Services Vault Name",
+                            "subLabel": "",
+                            "defaultValue": "Test-RSV",
+                            "toolTip": "Name of the Recovery Services Vault",
+                            "constraints": {
+                                "required": false,
+                                "regex": "",
+                                "validationMessage": "",
+                                "validations": []
+                            },
+                            "infoMessages": [],
+                            "visible": true
+                        },
+                        {
+                            "name": "backupPolicyName",
+                            "type": "Microsoft.Common.TextBox",
+                            "label": "Backup Policy Name",
+                            "subLabel": "",
+                            "defaultValue": "EnhancedPolicy",
+                            "toolTip": "Name of the Backup policy to be used to backup VMs. Backup Policy defines the schedule of the backup and how long to retain backup copies. By default every vault comes with a 'DefaultPolicy' which canbe used here.",
+                            "constraints": {
+                                "required": false,
+                                "regex": "",
+                                "validationMessage": "",
+                                "validations": []
+                            },
+                            "infoMessages": [],
+                            "visible": true
+                        }
+                    ]
+                }
+            ]
+        },
+        "outputs": {
+            "kind": "ResourceGroup",
+            "location": "[steps('basics').resourceScope.location.name]",
+            "resourceGroupId": "[steps('basics').resourceScope.resourceGroup.id]",
+            "parameters": {
+                "keyVaultName": "[steps('virtualmachinedetails').keyVaultName]",
+                "vmAdmin": "[steps('virtualmachinedetails').vmAdmin]",
+                "vmAdminPassword": "[steps('virtualmachinedetails').vmAdminPassword]",
+                "vNetResourceGroup": "[steps('virtualmachinedetails').vNetResourceGroup]",
+                "vNetName": "[steps('virtualmachinedetails').vNetName]",
+                "subnetName": "[steps('virtualmachinedetails').subnetName]",
+                "virtualMachineNamePrefix": "[steps('virtualmachinedetails').virtualMachineNamePrefix]",
+                "virtualMachineNameSuffix": "[steps('virtualmachinedetails').virtualMachineNameSuffix]",
+                "vmSize": "[steps('virtualmachinedetails').vmSize]",
+                "dataDisks": "[steps('virtualmachinedetails').dataDisks]",
+                "osType": "[steps('virtualmachinedetails').osType]",
+                "licenseType": "[steps('virtualmachinedetails').licenseType]",
+                "operatingSystem": "[steps('virtualmachinedetails').operatingSystem]",
+                "securityType": "[steps('virtualmachinedetails').securityType]",
+                "timeZone": "[steps('virtualmachinedetails').timeZone]",
+                "tags": "[steps('virtualmachinedetails').tags]",
+                "recoveryServicesVaultRgName": "[steps('virtualmachinebackup').recoveryServicesVaultRgName]",
+                "recoveryServicesVaultName": "[steps('virtualmachinebackup').recoveryServicesVaultName]",
+                "backupPolicyName": "[steps('virtualmachinebackup').backupPolicyName]"
+            }
+        }
+    }
+}
